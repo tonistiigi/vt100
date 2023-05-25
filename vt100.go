@@ -329,6 +329,11 @@ func (v *VT100) advance() {
 }
 
 func (v *VT100) scrollIfNeeded() {
+	if v.Cursor.X >= v.Width {
+		v.Cursor.X = 0
+		v.Cursor.Y++
+	}
+
 	if v.Cursor.Y >= v.Height {
 		first := v.Content[0]
 		copy(v.Content, v.Content[1:])
